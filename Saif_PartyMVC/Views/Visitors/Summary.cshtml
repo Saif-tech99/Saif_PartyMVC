@@ -1,13 +1,8 @@
-﻿@{ int x = (int)TempData.Peek("TotalGuests");
+﻿@{
+    int x = (int)TempData.Peek("TotalGuests");
     int y = (int)TempData.Peek("TotalFamilyMembers");
     int z = (int)TempData.Peek("YoungestGuestAge");
     int s = (int)TempData.Peek("OldestguestAge");
-
-    TempData.Keep("TotalGuests");
-    TempData.Keep("TotalFamilyMembers");
-    TempData.Keep("YoungestGuestAge");
-    TempData.Keep("OldestguestAge");
-
 }
 
 @{

@@ -1,28 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Saif_PartyMVC.Models;
-using System.Collections.Generic;
 using System.Linq;
+using test.Repository;
 
 namespace Saif_PartyMVC.Controllers
 {
     public class VisitorsController : Controller
     {
+        private readonly VisitorRepo _repo = new VisitorRepo();
 
-        private List<Visitor> _visitors = new List<Visitor>();
-
-        // GET - Create
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-
-        // POST - Create
         [HttpPost]
         public IActionResult Create(Visitor visitor)
         {
-            _visitors.Add(visitor);
+            _repo.Add(visitor);
             return View();
         }
 
@@ -30,34 +26,33 @@ namespace Saif_PartyMVC.Controllers
         [HttpGet]
         public IActionResult Summary()
         {
-            TempData["TotalGuests"] = _visitors.Count;
-            TempData["TotalFamilyMembers"] = _visitors.Count(x => x.IsFamily == true);
-            TempData["YoungestGuestAge"] = _visitors.Count(x => x.Age < x.Age);
-            TempData["OldestguestAge"] = _visitors.Count(x => x.Age > x.Age);
+            TempData["TotalGuests"] = _repo.List.Count;
+            TempData["TotalFamilyMembers"] = _repo.List.Count(x => x.IsFamily == true);
+            TempData["YoungestGuestAge"] = _repo.List.Count(x => x.Age < x.Age) ;
+            TempData["OldestguestAge"] = _repo.List.Count(x => x.Age > x.Age);
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Summary(int id)
+        public IActionResult Summary(VisitorRepo visitor)
         {
-            int totalG = (int)TempData.Peek("TotalGuests");
-            int totalF = (int)TempData.Peek("TotalFamilyMembers");
-            int totalY = (int)TempData.Peek("YoungestGuestAge");
-            int totalO = (int)TempData.Peek("OldestguestAge");
+            int x = (int)TempData.Peek("TotalGuests");
+            int y = (int)TempData.Peek("TotalFamilyMembers");
+            int z = (int)TempData.Peek("YoungestGuestAge");
+            int s = (int)TempData.Peek("OldestguestAge");
 
-            totalG = _visitors.Count;
-            totalF = _visitors.Count(x => x.IsFamily == true);
-            totalY = _visitors.Count(x => x.Age < x.Age);
-            totalO = _visitors.Count(x => x.Age > x.Age);
+            x = _repo.List.Count;
+            y = _repo.List.Count(x => x.IsFamily == true);
+            z = _repo.List.Count(x => x.Age < x.Age).CompareTo(s);
+            s = _repo.List.Count(x => x.Age > x.Age).CompareTo(z);
 
-            TempData["TotalGuests"] = totalG;
-            TempData["TotalFamilyMembers"] = totalF;
-            TempData["YoungestGuestAge"] = totalY;
-            TempData["OldestguestAge"] = totalO;
+            TempData["TotalGuests"] = x;
+            TempData["TotalFamilyMembers"] = y;
+            TempData["YoungestGuestAge"] = z;
+            TempData["OldestguestAge"] = s;
 
             return View();
         }
-
     }
 }
