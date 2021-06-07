@@ -28,7 +28,7 @@ namespace Saif_PartyMVC.Controllers
         {
             TempData["TotalGuests"] = _repo.List.Count;
             TempData["TotalFamilyMembers"] = _repo.List.Count(x => x.IsFamily == true);
-            TempData["YoungestGuestAge"] = _repo.List.Count(x => x.Age < x.Age) ;
+            TempData["YoungestGuestAge"] = _repo.List.Count(x => x.Age < x.Age);
             TempData["OldestguestAge"] = _repo.List.Count(x => x.Age > x.Age);
 
             return View();
@@ -44,8 +44,8 @@ namespace Saif_PartyMVC.Controllers
 
             x = _repo.List.Count;
             y = _repo.List.Count(x => x.IsFamily == true);
-            z = _repo.List.Count(x => x.Age < x.Age).CompareTo(s);
-            s = _repo.List.Count(x => x.Age > x.Age).CompareTo(z);
+            z = _repo.List.Count(x => x.Age < x.Age);
+            s = _repo.List.Count(x => x.Age > x.Age);
 
             TempData["TotalGuests"] = x;
             TempData["TotalFamilyMembers"] = y;
