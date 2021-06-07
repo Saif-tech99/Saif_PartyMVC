@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Saif_PartyMVC.Models;
+using System.Collections.Generic;
 using System.Linq;
 using test.Repository;
 
@@ -29,6 +30,7 @@ namespace Saif_PartyMVC.Controllers
             TempData["TotalGuests"] = _repo.List.Count;
             TempData["TotalFamilyMembers"] = _repo.List.Count(x => x.IsFamily == true);
             TempData["YoungestGuestAge"] = _repo.List.Count(x => x.Age < x.Age);
+            //TempData["YoungestGuestAge"] = _repo.List.OrderByDescending(x => x.Age).LastOrDefault();
             TempData["OldestguestAge"] = _repo.List.Count(x => x.Age > x.Age);
 
             return View();
@@ -39,13 +41,16 @@ namespace Saif_PartyMVC.Controllers
         {
             int x = (int)TempData.Peek("TotalGuests");
             int y = (int)TempData.Peek("TotalFamilyMembers");
-            int z = (int)TempData.Peek("YoungestGuestAge");
-            int s = (int)TempData.Peek("OldestguestAge");
+            var z = TempData.Peek("YoungestGuestAge");
+            var s = TempData.Peek("OldestguestAge");
 
             x = _repo.List.Count;
             y = _repo.List.Count(x => x.IsFamily == true);
             z = _repo.List.Count(x => x.Age < x.Age);
             s = _repo.List.Count(x => x.Age > x.Age);
+
+            //z = _repo.List.OrderByDescending(x => x.Age).LastOrDefault();
+            //s = _repo.List.OrderByDescending(x => x.Age).FirstOrDefault();
 
             TempData["TotalGuests"] = x;
             TempData["TotalFamilyMembers"] = y;
