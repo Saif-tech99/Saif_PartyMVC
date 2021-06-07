@@ -1,0 +1,22 @@
+﻿@{ int x = (int)TempData.Peek("TotalGuests");
+    int y = (int)TempData.Peek("TotalFamilyMembers");
+    int z = (int)TempData.Peek("YoungestGuestAge");
+    int s = (int)TempData.Peek("OldestguestAge");
+
+    TempData.Keep("TotalGuests");
+    TempData.Keep("TotalFamilyMembers");
+    TempData.Keep("YoungestGuestAge");
+    TempData.Keep("OldestguestAge");
+
+}
+
+@{
+    <h1>Overview of the Party Guests</h1>
+
+    <h1>Total Guests : @x</h1>
+    <h1>Total Family Members : @y</h1>
+    <h1>Youngest guest Age : @z</h1>
+    <h1>Oldest guest Age : @s</h1>
+
+}
+
